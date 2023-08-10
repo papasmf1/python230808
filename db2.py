@@ -1,8 +1,8 @@
 # db1.py 
 import sqlite3
 
-#연결객체(일단 메모리에 저장) 
-con = sqlite3.connect(":memory:")
+#연결객체(물리적인 파일에 저장) 
+con = sqlite3.connect("c:\\work\\sample.db")
 #커서객체 
 cur = con.cursor() 
 #테이블 구조 생성
@@ -22,12 +22,9 @@ cur.executemany("insert into PhoneBook (name, phoneNum) values (?, ?);",
     datalist)
 #검색 
 cur.execute("select * from PhoneBook;")
-# for row in cur:
-#     print(row)
-print("---fetchone()---")
-print(cur.fetchone())
-print("---fetchmany(2)---")
-print(cur.fetchmany(2))
-print("---fetchall()---")
-cur.execute("select * rom PhoneBook;")
-print(cur.fetchall())
+for row in cur:
+    print(row)
+
+#커밋
+con.commit() 
+
